@@ -21,13 +21,13 @@ class Controller:
 
     def play(self):
         pchoice = self.view.getChoice()
-        print(pchoice)
         self.model.play(pchoice)
         tuple = self.model.stats()
+        # TODO das sollte eig. nicht im Controller passieren
         self.view.round.setText(f"{tuple[0]}")
         self.view.score_player.setText(f"{tuple[1]}")
         self.view.score_computer.setText(f"{tuple[2]}")
-        self.view.label_2.setText(f"letzter Spielzug: [computer:{tuple[3]}] [spieler:{tuple[4]}]")
+        self.view.label_2.setText(f"Spieler [{self.model.toString(tuple[4])}], Computer [{self.model.toString(tuple[3])}]")
 
 
 if __name__ == "__main__":

@@ -34,9 +34,8 @@ class Model:
     def stats(self):
         return (self._round, self._player_score, self._computer_score, self._computerLast, self._playerLast)
 
-
-def toString(a: int):
-    return {0: "Rock", 1: "Paper", 2: "Scissors"}[a]
+    def toString(self, a: int):
+        return {0: "Rock", 1: "Paper", 2: "Scissors"}[a]
 
 
 if __name__ == "__main__":
@@ -44,7 +43,7 @@ if __name__ == "__main__":
     rps = Model(RandomOpponent.RandomOpponent())
     for players_choice in range(3):
         for ochoice in range(3):
-            print(f"Player: {toString(players_choice)}, Opponent: {toString(ochoice)}")
+            print(f"Player: {rps.toString(players_choice)}, Opponent: {rps.toString(ochoice)}")
             rps.play(players_choice, ochoice)
             if rps._player_score == 1: print("Player won")
             elif rps._computer_score == 1: print("Opponent won")
