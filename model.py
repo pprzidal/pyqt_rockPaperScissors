@@ -9,11 +9,15 @@ class Model:
     def __init__(self, opponent: AbstractOpponent):
         self._player_score = 0
         self._computer_score = 0
+        self._playerLast = 0
+        self._computerLast = 0
         self._round = 0
         self._opponent = opponent
 
     def play(self, players_choice: int):
+        self._playerLast = players_choice
         ochoice = self._opponent.choice()
+        self._computerLast = ochoice
         # TODO find even simpler solution
         if players_choice > ochoice or (players_choice == Model.ROCK and ochoice == Model.SCISSORS) and not (players_choice == Model.SCISSORS and ochoice == Model.ROCK):
             self._player_score += 1
@@ -25,6 +29,9 @@ class Model:
         self._player_score = 0
         self._computer_score = 0
         self._round = 0
+
+    def stats(self):
+        return (self._round, self._player_score, self._computer_score, self._computerLast, self._playerLast)
 
 def toString(a: int):
     if a == 0: return "Rock"

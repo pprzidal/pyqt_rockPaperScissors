@@ -22,8 +22,7 @@ class View(QMainWindow):
         self.label_2.setText('<html><head/><body><p align="center"><span style=" font-size:16pt;">letzter Spielzug</span></p></body></html>')
 
     def getChoice(self) -> int:
-        choice = self.comboBox.currentText()
-        return {"Rock": 0, "Paper": 1, "Scissors": 2}[choice]
+        return {"Rock": 0, "Paper": 1, "Scissors": 2}[self.comboBox.currentText()]
 
 
 if __name__ == '__main__':
