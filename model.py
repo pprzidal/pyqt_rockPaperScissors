@@ -1,3 +1,4 @@
+import RandomOpponent
 from AbstractOpponent import AbstractOpponent
 
 
@@ -14,12 +15,12 @@ class Model:
         self._round = 0
         self._opponent = opponent
 
-    def play(self, players_choice: int):
+    def play(self, players_choice: int, dchoice=-1):
         self._playerLast = players_choice
-        ochoice = self._opponent.choice()
+        ochoice = self._opponent.choice() if dchoice == -1 else dchoice
         self._computerLast = ochoice
         # TODO find even simpler solution
-        if players_choice > ochoice or (players_choice == Model.ROCK and ochoice == Model.SCISSORS) and not (players_choice == Model.SCISSORS and ochoice == Model.ROCK):
+        if (players_choice == self.ROCK and ochoice == self.SCISSORS) or (players_choice == self.SCISSORS and ochoice == self.PAPER) or (players_choice == self.PAPER and ochoice == self.ROCK):
             self._player_score += 1
         elif players_choice != ochoice:
             self._computer_score += 1
@@ -33,18 +34,19 @@ class Model:
     def stats(self):
         return (self._round, self._player_score, self._computer_score, self._computerLast, self._playerLast)
 
+
 def toString(a: int):
-    if a == 0: return "Rock"
-    elif a == 1: return "Paper"
-    elif a == 2: return "Scissors"
+    return {0: "Rock", 1: "Paper", 2: "Scissors"}[a]
+
 
 if __name__ == "__main__":
+    # Test is kinda shitty
+    rps = Model(RandomOpponent.RandomOpponent())
     for players_choice in range(3):
         for ochoice in range(3):
             print(f"Player: {toString(players_choice)}, Opponent: {toString(ochoice)}")
-            if (players_choice == Model.ROCK and ochoice == Model.SCISSORS) or players_choice > ochoice and not (players_choice == Model.SCISSORS and ochoice == Model.ROCK):
-                print("Player wins")
-            elif ochoice != players_choice:
-                print("Opponent wins")
-            else:
-                print("Tie")
+            rps.play(players_choice, ochoice)
+            if rps._player_score == 1: print("Player won")
+            elif rps._computer_score == 1: print("Opponent won")
+            else: print("Tie")
+            rps.reset()
