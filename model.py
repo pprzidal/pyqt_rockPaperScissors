@@ -3,7 +3,7 @@ from AbstractOpponent import AbstractOpponent
 
 
 class Model:
-    ROCK = 0
+    ROCK = 0 # TODO hide better
     PAPER = 1
     SCISSORS = 2
 
@@ -15,7 +15,7 @@ class Model:
         self._round = 0
         self._opponent = opponent
 
-    def play(self, players_choice: int, dchoice=-1):
+    def play(self, players_choice: int, dchoice=-1) -> None:
         self._playerLast = players_choice
         ochoice = self._opponent.choice() if dchoice == -1 else dchoice
         self._computerLast = ochoice
@@ -25,16 +25,18 @@ class Model:
         elif players_choice != ochoice:
             self._computer_score += 1
         self._round += 1
+        # TODO return the stats right away
 
-    def reset(self):
+    def reset(self) -> None:
         self._player_score = 0
         self._computer_score = 0
         self._round = 0
 
-    def stats(self):
+    def stats(self) -> tuple:
+        #TODO not so clean i guess
         return (self._round, self._player_score, self._computer_score, self._computerLast, self._playerLast)
 
-    def toString(self, a: int):
+    def toString(self, a: int) -> str:
         return {0: "Rock", 1: "Paper", 2: "Scissors"}[a]
 
 

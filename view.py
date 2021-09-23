@@ -24,10 +24,3 @@ class View(QMainWindow):
     def getChoice(self) -> int:
         return {"Rock": 0, "Paper": 1, "Scissors": 2}[self.comboBox.currentText()]
 
-
-if __name__ == '__main__':
-    import sys
-    app = QApplication([])
-    v = View()
-    v.show()
-    sys.exit(app.exec())
