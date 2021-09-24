@@ -15,7 +15,7 @@ class Model:
         self._round = 0
         self._opponent = opponent
 
-    def play(self, players_choice: int, dchoice=-1) -> None:
+    def play(self, players_choice: int, dchoice=-1) -> tuple:
         self._playerLast = players_choice
         ochoice = self._opponent.choice() if dchoice == -1 else dchoice
         self._computerLast = ochoice
@@ -25,6 +25,7 @@ class Model:
         elif players_choice != ochoice:
             self._computer_score += 1
         self._round += 1
+        return self.stats()
         # TODO return the stats right away
 
     def reset(self) -> None:

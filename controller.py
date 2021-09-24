@@ -15,19 +15,26 @@ class Controller:
         self.model.reset()
         self.view.reset()
 
-    def exit(self):
+    def exit(self) -> None:
+        """
+        Callback for "exit" button
+        :return:
+        """
         # TODO maybe do some cleanup if needed
         self.view.close()
 
-    def play(self):
+    def play(self) -> None:
+        """
+        Callback for "play" button
+        :return: doesnt return anything
+        """
         pchoice = self.view.getChoice()
-        self.model.play(pchoice)
-        tuple = self.model.stats()
+        stats = self.model.play(pchoice)
         # TODO das sollte eig. nicht im Controller passieren
-        self.view.round.setText(f"{tuple[0]}")
-        self.view.score_player.setText(f"{tuple[1]}")
-        self.view.score_computer.setText(f"{tuple[2]}")
-        self.view.label_2.setText(f"Spieler [{self.model.toString(tuple[4])}], Computer [{self.model.toString(tuple[3])}]")
+        self.view.round.setText(f"{stats[0]}")
+        self.view.score_player.setText(f"{stats[1]}")
+        self.view.score_computer.setText(f"{stats[2]}")
+        self.view.label_2.setText(f"Spieler [{self.model.toString(stats[4])}], Computer [{self.model.toString(stats[3])}]")
 
 
 if __name__ == "__main__":
