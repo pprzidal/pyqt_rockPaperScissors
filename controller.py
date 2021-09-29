@@ -2,23 +2,27 @@ from PyQt6.QtWidgets import QApplication
 import model, view, sys
 from RandomOpponent import RandomOpponent
 
-"""
-"""
-
 
 class Controller:
     def __init__(self):
-        self.model = model.Model(RandomOpponent())
+        """
+        "Constructor" (i know it's not really a constructor)
+        """
+        self.model = model.RockPaperScissors(RandomOpponent())
         self.view = view.View(self)
 
     def reset(self) -> None:
+        """
+        Resets the UI and the Model
+        :return: nothing
+        """
         self.model.reset()
         self.view.reset()
 
     def exit(self) -> None:
         """
         Callback for "exit" button
-        :return:
+        :return: doesnt return anything
         """
         # TODO maybe do some cleanup if needed
         self.view.close()
@@ -30,11 +34,10 @@ class Controller:
         """
         pchoice = self.view.getChoice()
         stats = self.model.play(pchoice)
-        # TODO das sollte eig. nicht im Controller passieren
-        self.view.round.setText(f"{stats[0]}")
-        self.view.score_player.setText(f"{stats[1]}")
-        self.view.score_computer.setText(f"{stats[2]}")
-        self.view.label_2.setText(f"Spieler [{self.model.toString(stats[4])}], Computer [{self.model.toString(stats[3])}]")
+        self.view.setRound(stats[0])
+        self.view.setPlayerScore(stats[1])
+        self.view.setComputerScore(stats[2])
+        self.view.setChoices(f"Spieler [{self.model.toString(stats[4])}], Computer [{self.model.toString(stats[3])}]")
 
 
 if __name__ == "__main__":
