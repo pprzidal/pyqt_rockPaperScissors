@@ -29,11 +29,15 @@ class RockPaperScissors:
         self._playerLast = players_choice
         ochoice = self._opponent.choice() if dchoice == -1 else dchoice
         self._computerLast = ochoice
+        won = None
         if players_choice - 1 == ochoice or (players_choice == self._ROCK and ochoice == self._SCISSORS):
             self._player_score += 1
+            won = "player"
         elif players_choice != ochoice:
             self._computer_score += 1
+            won = "computer"
         self._round += 1
+        self._opponent.addToHistory({"player": self.toString(players_choice), "computer": self.toString(ochoice), "won": won if won is not None else "tie"})
         return self.stats()
 
     def reset(self) -> None:

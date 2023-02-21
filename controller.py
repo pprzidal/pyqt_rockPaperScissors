@@ -1,14 +1,14 @@
 from PyQt6.QtWidgets import QApplication
-import model, view, sys
-from RandomOpponent import RandomOpponent
+import model, view, sys, RandomOpponent, SmartOpponent
 
 
 class Controller:
-    def __init__(self):
+    def __init__(self, smart=False):
         """
         "Constructor" (i know it's not really a constructor)
         """
-        self.model = model.RockPaperScissors(RandomOpponent())
+        print(smart)
+        self.model = model.RockPaperScissors(RandomOpponent.RandomOpponent() if not smart else SmartOpponent.SmartOpponent())
         self.view = view.View(self)
 
     def reset(self) -> None:
@@ -42,6 +42,6 @@ class Controller:
 
 if __name__ == "__main__":
     app = QApplication([])
-    c = Controller()
+    c = Controller(smart=sys.argv[1] == "--smart" if len(sys.argv) == 2 else False)
     c.view.show()
     sys.exit(app.exec())
